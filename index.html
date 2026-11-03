@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -174,9 +175,21 @@
             to { opacity: 1; transform: scale(1); }
         }
 
+        .type-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold-light);
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
         .modal-title {
             color: var(--accent-gold-light);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             margin-bottom: 12px;
         }
@@ -185,15 +198,18 @@
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 10px;
         }
 
         .modal-highlight {
             background: rgba(212, 175, 55, 0.08);
             border-left: 3px solid var(--accent-gold);
             padding: 10px 12px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             font-size: 12px;
             color: var(--text-primary);
             text-align: left;
@@ -204,7 +220,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px dashed var(--accent-gold);
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px;
             margin-bottom: 16px;
         }
 
@@ -213,7 +229,7 @@
             font-weight: bold;
             color: var(--accent-gold-light);
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             user-select: all;
         }
 
@@ -238,7 +254,7 @@
         .footer-tips {
             font-size: 11px;
             color: #64748b;
-            margin-top: 12px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -260,74 +276,75 @@
             <div class="question-card active" data-q="1">
                 <div class="question-title">1. 当前最困扰你的职场/事业状态是什么？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="nextQuestion(1)">A. 天天加班干杂活，升职加薪却永远轮不到自己</button>
-                    <button class="option-btn" onclick="nextQuestion(1)">B. 业务能力极强，但极度讨厌向上汇报与人际拉扯</button>
-                    <button class="option-btn" onclick="nextQuestion(1)">C. 处在人生十字路口，盲目内耗，找不到方向</button>
-                    <button class="option-btn" onclick="nextQuestion(1)">D. 收入遇到明显瓶颈，想搞副业或创业却缺乏契机</button>
+                    <button class="option-btn" onclick="nextQuestion(1, 'D')">A. 天天加班干杂活，升职加薪却永远轮不到自己</button>
+                    <button class="option-btn" onclick="nextQuestion(1, 'B')">B. 业务能力极强，但极度讨厌向上汇报与人际拉扯</button>
+                    <button class="option-btn" onclick="nextQuestion(1, 'F')">C. 处在人生十字路口，盲目内耗，找不到方向</button>
+                    <button class="option-btn" onclick="nextQuestion(1, 'A')">D. 收入遇到明显瓶颈，想搞副业或创业却缺乏契机</button>
                 </div>
             </div>
 
             <div class="question-card" data-q="2">
                 <div class="question-title">2. 面对职场不公或突发重压时，你的第一反应通常是？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="nextQuestion(2)">A. 忍气吞声，尽量揽在自己身上，寄希望于“日久见人心”</button>
-                    <button class="option-btn" onclick="nextQuestion(2)">B. 内心极其愤怒与不屑，但懒得解释，选择冷处理或摆烂</button>
-                    <button class="option-btn" onclick="nextQuestion(2)">C. 陷入严重的自我怀疑，反复焦虑是不是自己能力不够</button>
-                    <button class="option-btn" onclick="nextQuestion(2)">D. 快速寻找外部出路，甚至萌生直接离职/换赛道的念头</button>
+                    <button class="option-btn" onclick="nextQuestion(2, 'D')">A. 忍气吞声，尽量揽在自己身上，寄希望于“日久见人心”</button>
+                    <button class="option-btn" onclick="nextQuestion(2, 'B')">B. 内心极其愤怒与不屑，但懒得解释，选择冷处理或摆烂</button>
+                    <button class="option-btn" onclick="nextQuestion(2, 'F')">C. 陷入严重的自我怀疑，反复焦虑是不是自己能力不够</button>
+                    <button class="option-btn" onclick="nextQuestion(2, 'E')">D. 快速寻找外部出路，甚至萌生直接离职/换赛道的念头</button>
                 </div>
             </div>
 
             <div class="question-card" data-q="3">
                 <div class="question-title">3. 在团队或商业合作中，你觉得自己的核心天赋优势更偏向于？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="nextQuestion(3)">A. 极强的执行力与落地能力，能把混乱的事情整理得井井有条</button>
-                    <button class="option-btn" onclick="nextQuestion(3)">B. 深刻的洞察力与专业壁垒，适合独立攻坚或做核心幕僚</button>
-                    <button class="option-btn" onclick="nextQuestion(3)">C. 强大的资源整合与管理天赋，能带领团队拿结果</button>
-                    <button class="option-btn" onclick="nextQuestion(3)">D. 敏锐的商业嗅觉与开拓精神，敢打敢拼，喜欢新鲜挑战</button>
+                    <button class="option-btn" onclick="nextQuestion(3, 'D')">A. 极强的执行力与落地能力，能把混乱的事情整理得井井有条</button>
+                    <button class="option-btn" onclick="nextQuestion(3, 'B')">B. 深刻的洞察力与专业壁垒，适合独立攻坚或做核心幕僚</button>
+                    <button class="option-btn" onclick="nextQuestion(3, 'C')">C. 强大的资源整合与管理天赋，能带领团队拿结果</button>
+                    <button class="option-btn" onclick="nextQuestion(3, 'A')">D. 敏锐的商业嗅觉与开拓精神，敢打敢拼，喜欢新鲜挑战</button>
                 </div>
             </div>
 
             <div class="question-card" data-q="4">
                 <div class="question-title">4. 回顾你过去 1-2 年的履历与成果，你最明显的体感是？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="nextQuestion(4)">A. 付出与回报严重不成正比，感觉自己在被无休止地“消耗”</button>
-                    <button class="option-btn" onclick="nextQuestion(4)">B. 遭遇了小人作祟或莫名其妙的阻碍，导致项目/晋升受阻</button>
-                    <button class="option-btn" onclick="nextQuestion(4)">C. 状态起伏极大，时而干劲十足，时而极度疲惫想躺平</button>
-                    <button class="option-btn" onclick="nextQuestion(4)">D. 遇到了明显的“天花板”，无论怎么努力都很难再上一层楼</button>
+                    <button class="option-btn" onclick="nextQuestion(4, 'D')">A. 付出与回报严重不成正比，感觉自己在被无休止地“消耗”</button>
+                    <button class="option-btn" onclick="nextQuestion(4, 'C')">B. 遭遇了小人作祟或莫名其妙的阻碍，导致项目/晋升受阻</button>
+                    <button class="option-btn" onclick="nextQuestion(4, 'F')">C. 状态起伏极大，时而干劲十足，时而极度疲惫想躺平</button>
+                    <button class="option-btn" onclick="nextQuestion(4, 'E')">D. 遇到了明显的“天花板”，无论怎么努力都很难再上一层楼</button>
                 </div>
             </div>
 
             <div class="question-card" data-q="5">
                 <div class="question-title">5. 如果要开启下一个阶段的爆发，你觉得目前最缺失的是什么？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="nextQuestion(5)">A. 一个能够充分彰显自己价值、不再被埋没的“正确平台”</button>
-                    <button class="option-btn" onclick="nextQuestion(5)">B. 一套清晰的个人商业定位与高价值的天赋赛道规划</button>
-                    <button class="option-btn" onclick="nextQuestion(5)">C. 能够识才认才的贵人相助，或是核心大运周期的启动点</button>
-                    <button class="option-btn" onclick="nextQuestion(5)">D. 走出舒适区的勇气，以及彻底破除内心内耗卡点的定力</button>
+                    <button class="option-btn" onclick="nextQuestion(5, 'C')">A. 一个能够充分彰显自己价值、不再被埋没的“正确平台”</button>
+                    <button class="option-btn" onclick="nextQuestion(5, 'B')">B. 一套清晰的个人商业定位与高价值的天赋赛道规划</button>
+                    <button class="option-btn" onclick="nextQuestion(5, 'A')">C. 能够识才认才的贵人相助，或是核心大运周期的启动点</button>
+                    <button class="option-btn" onclick="nextQuestion(5, 'F')">D. 走出舒适区的勇气，以及彻底破除内心内耗卡点的定力</button>
                 </div>
             </div>
 
             <div class="question-card" data-q="6">
                 <div class="question-title">6. 如果 HR安妮 能通过八字/紫微命盘为你解答一个核心局，你最想看清？</div>
                 <div class="options">
-                    <button class="option-btn" onclick="finishQuiz()">A. 我未来的核心运势大运走势，以及什么时候能遇到贵人/转机</button>
-                    <button class="option-btn" onclick="finishQuiz()">B. 我究竟适合在大厂/体制内爬梯子，还是适合自己搞副业创业</button>
-                    <button class="option-btn" onclick="finishQuiz()">C. 我命局里的“五行/主星能量卡点”在哪，如何快速破解内耗</button>
-                    <button class="option-btn" onclick="finishQuiz()">D. 未来 3 年的财运走势与关键避坑指南，实现财富跃迁</button>
+                    <button class="option-btn" onclick="finishQuiz('A')">A. 我未来的核心运势大运走势，以及什么时候能遇到贵人/转机</button>
+                    <button class="option-btn" onclick="finishQuiz('E')">B. 我究竟适合在大厂/体制内爬梯子，还是适合自己搞副业创业</button>
+                    <button class="option-btn" onclick="finishQuiz('B')">C. 我命局里的“五行/主星能量卡点”在哪，如何快速破解内耗</button>
+                    <button class="option-btn" onclick="finishQuiz('D')">D. 未来 3 年的财运走势与关键避坑指南，实现财富跃迁</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 方案一：高客单顾问风 结果弹窗 -->
+    <!-- 结果弹窗 -->
     <div class="modal-overlay" id="resultModal">
         <div class="modal-card">
-            <div class="modal-title">【测试结果仅显示 30% 核心概貌】</div>
-            <p class="modal-desc">
-                答题结果显示：你的**命局主星与当前大运存在能量错位**。你并非能力不行，而是正处于“能量蛰伏期”与“苦劳陷阱”的交界处。
-            </p>
+            <span class="type-tag" id="resType">【破军/开拓型 · 运势错位】</span>
+            <div class="modal-title">诊断提示：核心概貌度 30%</div>
+            <div class="modal-desc" id="resDesc">
+                你本身具备极强的冲劲与个人能力，但当前命局大运处于能量错位期。你并非能力不行，而是把过多的精力和能量消耗在了不适合自己的赛道与模式上。
+            </div>
             <div class="modal-highlight">
-                📌 想要彻底看清未来的关键转折点与赛道选择，需要结合您的**生辰八字/紫微斗数 12 宫位**进行全盘测算与深度诊断。
+                📌 想要看清属于你的**天选赛道、贵人运势与 10 年大运转折点**，需结合您的**生辰八字/紫微斗数 12 宫位**进行全盘精准拆解。
             </div>
             <div class="wechat-box">
                 <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">添加 HR安妮 个人微信</div>
@@ -335,15 +352,45 @@
                 <div style="font-size: 11px; color: var(--accent-gold-light);">（备注：测试结果，优先通过）</div>
             </div>
             <button class="copy-btn" onclick="copyWechat()">复制微信号并去添加</button>
-            <p class="footer-tips">🎁 添加后可领取《1v1 命局与职场天赋私享分析报告》<br>每天仅限 2 名预约 1v1 深度破局诊断</p>
+            <p class="footer-tips">🎁 添加后免费领取《1v1 命局与天赋私享报告》<br>每天仅限 2 名预约安妮 1v1 生辰全盘诊断</p>
         </div>
     </div>
 
     <script>
         let currentQ = 1;
         const totalQ = 6;
+        let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
-        function nextQuestion(q) {
+        // 6种动态诊断评语数据库
+        const resultData = {
+            A: {
+                type: "【破军/开拓型 · 运势错位】",
+                desc: "你本身具备极强的商业敏锐度与冲劲，但当前命局与大运走势存在‘能量错位’。你并非能力不行，而是把精力消耗在了不对的赛道与环境里，导致越拼越累。"
+            },
+            B: {
+                type: "【天机/智谋型 · 决策内耗】",
+                desc: "你有极深的专业壁垒和独立思考力，但命局中存在‘向上沟通与贵人卡点’。你讨厌人际拉扯，导致很多成果被他人冒领，内心常处于高度内耗与不甘中。"
+            },
+            C: {
+                type: "【紫微/管理型 · 资源蛰伏】",
+                desc: "你天生具备大局观与统筹天赋，但当前正处于大运的‘蛰伏修整期’。眼前平台或环境限制了你的发挥，甚至遭遇小人阻碍，迫切需要找到突破口。"
+            },
+            D: {
+                type: "【太阴/沉潜型 · 苦劳陷阱】",
+                desc: "你是典型的低调实干派，执行力极强，但命局中‘显化与表达能量’偏弱。你掉入了典型的‘苦劳陷阱’，天天干杂活，收益与付出严重不成正比。"
+            },
+            E: {
+                type: "【七杀/突破型 · 大运临界】",
+                desc: "你的职场能量正处于‘重大转折前的临界点’！你感受到了强烈的瓶颈与天花板，渴望转型、跳槽或开启副业，但缺乏对未来大运走势的清晰判断。"
+            },
+            F: {
+                type: "【天同/调和型 · 能量卡顿】",
+                desc: "你当前的职场气场处于‘严重消耗后的卡顿期’。频繁的自我怀疑与迷茫让你陷入摆烂与焦虑的循环，亟需重新理清生辰天赋与核心价值所在。"
+            }
+        };
+
+        function nextQuestion(q, category) {
+            scores[category] = (scores[category] || 0) + 1;
             document.querySelector(`.question-card[data-q="${q}"]`).classList.remove('active');
             currentQ = q + 1;
             
@@ -357,8 +404,25 @@
             }
         }
 
-        function finishQuiz() {
+        function finishQuiz(category) {
+            scores[category] = (scores[category] || 0) + 1;
             document.getElementById('progress').style.width = '100%';
+
+            // 计算最高得分的类型
+            let highestType = 'A';
+            let maxScore = -1;
+            for (let key in scores) {
+                if (scores[key] > maxScore) {
+                    maxScore = scores[key];
+                    highestType = key;
+                }
+            }
+
+            // 动态写入结果
+            const result = resultData[highestType];
+            document.getElementById('resType').innerText = result.type;
+            document.getElementById('resDesc').innerText = result.desc;
+
             setTimeout(() => {
                 document.getElementById('resultModal').style.display = 'flex';
             }, 300);
