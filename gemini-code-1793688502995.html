@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HR安妮·职场天赋与命局卡点自测</title>
+    <style>
+        :root {
+            --bg-color: #0d131f;
+            --card-bg: rgba(22, 30, 46, 0.85);
+            --border-color: rgba(212, 175, 55, 0.25);
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f3e5ab;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(30, 58, 138, 0.2) 0%, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold-light);
+            font-size: 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #f3e5ab);
+            width: 16.6%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-title {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .option-btn:active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--accent-gold);
+            transform: scale(0.99);
+        }
+
+        /* 模态弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 15, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: #121929;
+            border: 1px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 28px 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-title {
+            color: var(--accent-gold-light);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .modal-highlight {
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid var(--accent-gold);
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--text-primary);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .wechat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--accent-gold);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .wechat-id {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-gold-light);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            user-select: all;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #d4af37, #b38f2a);
+            color: #000;
+            font-weight: 600;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:active {
+            opacity: 0.9;
+        }
+
+        .footer-tips {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <span class="badge">HR安妮 · 独家解局</span>
+            <h1>职场天赋与命局卡点自测</h1>
+            <p class="subtitle">定位你的能量类型，找到当前最紧的那颗扣子</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <!-- 6道深度测评题 -->
+        <div id="quiz">
+            <div class="question-card active" data-q="1">
+                <div class="question-title">1. 当前最困扰你的职场/事业状态是什么？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="nextQuestion(1)">A. 天天加班干杂活，升职加薪却永远轮不到自己</button>
+                    <button class="option-btn" onclick="nextQuestion(1)">B. 业务能力极强，但极度讨厌向上汇报与人际拉扯</button>
+                    <button class="option-btn" onclick="nextQuestion(1)">C. 处在人生十字路口，盲目内耗，找不到方向</button>
+                    <button class="option-btn" onclick="nextQuestion(1)">D. 收入遇到明显瓶颈，想搞副业或创业却缺乏契机</button>
+                </div>
+            </div>
+
+            <div class="question-card" data-q="2">
+                <div class="question-title">2. 面对职场不公或突发重压时，你的第一反应通常是？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="nextQuestion(2)">A. 忍气吞声，尽量揽在自己身上，寄希望于“日久见人心”</button>
+                    <button class="option-btn" onclick="nextQuestion(2)">B. 内心极其愤怒与不屑，但懒得解释，选择冷处理或摆烂</button>
+                    <button class="option-btn" onclick="nextQuestion(2)">C. 陷入严重的自我怀疑，反复焦虑是不是自己能力不够</button>
+                    <button class="option-btn" onclick="nextQuestion(2)">D. 快速寻找外部出路，甚至萌生直接离职/换赛道的念头</button>
+                </div>
+            </div>
+
+            <div class="question-card" data-q="3">
+                <div class="question-title">3. 在团队或商业合作中，你觉得自己的核心天赋优势更偏向于？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="nextQuestion(3)">A. 极强的执行力与落地能力，能把混乱的事情整理得井井有条</button>
+                    <button class="option-btn" onclick="nextQuestion(3)">B. 深刻的洞察力与专业壁垒，适合独立攻坚或做核心幕僚</button>
+                    <button class="option-btn" onclick="nextQuestion(3)">C. 强大的资源整合与管理天赋，能带领团队拿结果</button>
+                    <button class="option-btn" onclick="nextQuestion(3)">D. 敏锐的商业嗅觉与开拓精神，敢打敢拼，喜欢新鲜挑战</button>
+                </div>
+            </div>
+
+            <div class="question-card" data-q="4">
+                <div class="question-title">4. 回顾你过去 1-2 年的履历与成果，你最明显的体感是？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="nextQuestion(4)">A. 付出与回报严重不成正比，感觉自己在被无休止地“消耗”</button>
+                    <button class="option-btn" onclick="nextQuestion(4)">B. 遭遇了小人作祟或莫名其妙的阻碍，导致项目/晋升受阻</button>
+                    <button class="option-btn" onclick="nextQuestion(4)">C. 状态起伏极大，时而干劲十足，时而极度疲惫想躺平</button>
+                    <button class="option-btn" onclick="nextQuestion(4)">D. 遇到了明显的“天花板”，无论怎么努力都很难再上一层楼</button>
+                </div>
+            </div>
+
+            <div class="question-card" data-q="5">
+                <div class="question-title">5. 如果要开启下一个阶段的爆发，你觉得目前最缺失的是什么？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="nextQuestion(5)">A. 一个能够充分彰显自己价值、不再被埋没的“正确平台”</button>
+                    <button class="option-btn" onclick="nextQuestion(5)">B. 一套清晰的个人商业定位与高价值的天赋赛道规划</button>
+                    <button class="option-btn" onclick="nextQuestion(5)">C. 能够识才认才的贵人相助，或是核心大运周期的启动点</button>
+                    <button class="option-btn" onclick="nextQuestion(5)">D. 走出舒适区的勇气，以及彻底破除内心内耗卡点的定力</button>
+                </div>
+            </div>
+
+            <div class="question-card" data-q="6">
+                <div class="question-title">6. 如果 HR安妮 能通过八字/紫微命盘为你解答一个核心局，你最想看清？</div>
+                <div class="options">
+                    <button class="option-btn" onclick="finishQuiz()">A. 我未来的核心运势大运走势，以及什么时候能遇到贵人/转机</button>
+                    <button class="option-btn" onclick="finishQuiz()">B. 我究竟适合在大厂/体制内爬梯子，还是适合自己搞副业创业</button>
+                    <button class="option-btn" onclick="finishQuiz()">C. 我命局里的“五行/主星能量卡点”在哪，如何快速破解内耗</button>
+                    <button class="option-btn" onclick="finishQuiz()">D. 未来 3 年的财运走势与关键避坑指南，实现财富跃迁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 方案一：高客单顾问风 结果弹窗 -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal-card">
+            <div class="modal-title">【测试结果仅显示 30% 核心概貌】</div>
+            <p class="modal-desc">
+                答题结果显示：你的**命局主星与当前大运存在能量错位**。你并非能力不行，而是正处于“能量蛰伏期”与“苦劳陷阱”的交界处。
+            </p>
+            <div class="modal-highlight">
+                📌 想要彻底看清未来的关键转折点与赛道选择，需要结合您的**生辰八字/紫微斗数 12 宫位**进行全盘测算与深度诊断。
+            </div>
+            <div class="wechat-box">
+                <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">添加 HR安妮 个人微信</div>
+                <div class="wechat-id" id="wxId">xx317268</div>
+                <div style="font-size: 11px; color: var(--accent-gold-light);">（备注：测试结果，优先通过）</div>
+            </div>
+            <button class="copy-btn" onclick="copyWechat()">复制微信号并去添加</button>
+            <p class="footer-tips">🎁 添加后可领取《1v1 命局与职场天赋私享分析报告》<br>每天仅限 2 名预约 1v1 深度破局诊断</p>
+        </div>
+    </div>
+
+    <script>
+        let currentQ = 1;
+        const totalQ = 6;
+
+        function nextQuestion(q) {
+            document.querySelector(`.question-card[data-q="${q}"]`).classList.remove('active');
+            currentQ = q + 1;
+            
+            // 更新进度条
+            const progressPercent = (currentQ / totalQ) * 100;
+            document.getElementById('progress').style.width = progressPercent + '%';
+
+            const nextCard = document.querySelector(`.question-card[data-q="${currentQ}"]`);
+            if (nextCard) {
+                nextCard.classList.add('active');
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('progress').style.width = '100%';
+            setTimeout(() => {
+                document.getElementById('resultModal').style.display = 'flex';
+            }, 300);
+        }
+
+        function copyWechat() {
+            const wxId = document.getElementById('wxId').innerText;
+            navigator.clipboard.writeText(wxId).then(() => {
+                alert('微信号已复制！即刻前往微信添加安妮，获取 1v1 精准命局与天赋深度解析。');
+            }).catch(() => {
+                alert('复制失败，请手动复制微信号：' + wxId);
+            });
+        }
+    </script>
+</body>
+</html>
